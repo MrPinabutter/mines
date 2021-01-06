@@ -10,6 +10,8 @@ export default function App() {
       <Text style={styles.welcome}>Iniciando o Mines!</Text>
       <Text style={styles.introductions}>Tamanho da grade: {params.getRowsAmount()} x {params.getColumnsAmount()}</Text>
       
+      <Field flagged />
+      <Field flagged opened/>
       <Field nearMines={8} opened mined/>
       <Field nearMines={8} opened mined exploded/>
       <Field nearMines={1} />

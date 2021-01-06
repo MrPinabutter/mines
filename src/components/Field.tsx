@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
 import Mine from './Mine';
+import Flag from './Flag';
 import params from '../params';
 
 interface FieldProps{
@@ -9,14 +10,16 @@ interface FieldProps{
   opened?: Boolean,
   nearMines?: number,
   exploded?: Boolean,
+  flagged?: Boolean
 };
 
-export default function Field({mined=false, opened=false, nearMines=0, exploded=false}:FieldProps){
+export default function Field({mined=false, opened=false, nearMines=0, exploded=false, flagged=false}:FieldProps){
   const styleFields:Array<{}> = [styles.field];
 
   if (opened) styleFields.push(styles.opened);
   if (exploded) styleFields.push(styles.exploded);
-  if (styleFields.length === 1) styleFields.push(styles.regular);
+  if (flagged) styleFields.push(styles.flagged)
+  if (!opened && !exploded) styleFields.push(styles.regular);
   
 
   let color = '';
@@ -36,6 +39,10 @@ export default function Field({mined=false, opened=false, nearMines=0, exploded=
 
       {mined && opened && (
         <Mine/>
+      )}
+
+      {flagged && !opened && (
+        <Flag />
       )}
     </View> 
   )
@@ -66,6 +73,10 @@ const styles = StyleSheet.create({
   exploded: {
     backgroundColor: 'red',
     borderColor: 'red'
+  },
+
+  flagged: {
+
   },
 
   label: {
