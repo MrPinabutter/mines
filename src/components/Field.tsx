@@ -1,26 +1,30 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+
+import Mine from './Mine';
 import params from '../params';
 
 interface FieldProps{
   mined?: Boolean,
   opened?: Boolean,
-  nearMines?: number
-}
+  nearMines?: number,
+  exploded?: Boolean,
+};
 
-export default function Field({mined=false, opened=false, nearMines=0}:FieldProps){
-  const styleFields:Array<{}> = [styles.field]
+export default function Field({mined=false, opened=false, nearMines=0, exploded=false}:FieldProps){
+  const styleFields:Array<{}> = [styles.field];
 
-  if (opened) styleFields.push(styles.opened)
-  if (mined) styleFields.push(styles.mined)
-  if (styleFields.length === 1) styleFields.push(styles.regular)
+  if (opened) styleFields.push(styles.opened);
+  if (exploded) styleFields.push(styles.exploded);
+  if (styleFields.length === 1) styleFields.push(styles.regular);
+  
 
-  let color = ''
+  let color = '';
   if(nearMines > 0){
-    if(nearMines == 1) color = '#2A28D7'
-    if(nearMines == 2) color = '#2B520F'
-    if(nearMines > 2 && nearMines < 6) color = '#F9060A'
-    if(nearMines >= 6) color = '#F221A9'
+    if(nearMines == 1) color = '#2A28D7';
+    if(nearMines == 2) color = '#2B520F';
+    if(nearMines > 2 && nearMines < 6) color = '#F9060A';
+    if(nearMines >= 6) color = '#F221A9';
   }
 
   return(
@@ -29,6 +33,10 @@ export default function Field({mined=false, opened=false, nearMines=0}:FieldProp
         <Text style={[styles.label, { color: color }]} >{nearMines}</Text>
         : false
       }
+
+      {mined && opened && (
+        <Mine/>
+      )}
     </View> 
   )
 }
@@ -55,8 +63,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  mined: {
-    
+  exploded: {
+    backgroundColor: 'red',
+    borderColor: 'red'
   },
 
   label: {
@@ -64,4 +73,4 @@ const styles = StyleSheet.create({
     fontSize: params.fontSize
   }
 
-})
+});

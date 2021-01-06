@@ -10,8 +10,9 @@ export default function App() {
       <Text style={styles.welcome}>Iniciando o Mines!</Text>
       <Text style={styles.introductions}>Tamanho da grade: {params.getRowsAmount()} x {params.getColumnsAmount()}</Text>
       
-      <Field nearMines={8} opened/>
-      <Field nearMines={8} opened/>
+      <Field nearMines={8} opened mined/>
+      <Field nearMines={8} opened mined exploded/>
+      <Field nearMines={1} />
       <Field nearMines={8} opened/>
 
       <StatusBar style="light" hidden/>
